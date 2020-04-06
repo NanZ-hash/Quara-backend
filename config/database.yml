@@ -1,0 +1,18 @@
+<% project_name = 'rails-api-template' %>
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+
+development:
+  <<: *default
+  database: <%= project_name %>_development
+  username: "postgres"
+  password: "0000"
+
+test:
+  <<: *default
+  database: <%= project_name %>_test
+  username: "postgres"
+  password: "0000"
