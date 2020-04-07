@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_113943) do
+ActiveRecord::Schema.define(version: 2020_04_07_115931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chapters", force: :cascade do |t|
+    t.bigint "story_id"
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["story_id"], name: "index_chapters_on_story_id"
+  end
 
   create_table "examples", force: :cascade do |t|
     t.text "text", null: false
@@ -52,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_113943) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "chapters", "stories"
   add_foreign_key "examples", "users"
   add_foreign_key "jokes", "users"
   add_foreign_key "stories", "users"

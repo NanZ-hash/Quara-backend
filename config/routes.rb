@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :chapters
-  resources :stories
-  resources :jokes
-  # RESTful routes
-  resources :examples, except: %i[new edit]
+  namespace :api do
+    namespace :v1 do
+      resources :chapters
+      resources :stories
+      resources :jokes
+    end
+  end
+  
+ 
 
   # Custom routes
   post '/sign-up' => 'users#signup'
