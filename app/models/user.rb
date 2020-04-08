@@ -2,5 +2,6 @@
 
 class User < ApplicationRecord
   include Authentication
-  has_many :jokes 
+  has_many :jokes , dependent: :destroy 
+  has_many :stories , dependent: :destroy 
 end

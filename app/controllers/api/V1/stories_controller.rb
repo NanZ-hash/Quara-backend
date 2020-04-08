@@ -1,6 +1,7 @@
 module Api::V1
-  class StoriesController < ApplicationController
-  before_action :set_story, only: [:show, :update, :destroy]
+  class StoriesController < ProtectedController
+    before_action :authenticate, only: [:create]
+    before_action :set_story, only: [:show, :update, :destroy]
 
   # GET /stories
   def index
@@ -17,7 +18,7 @@ module Api::V1
   # POST /stories
   def create
     @story = Story.new(story_params)
-
+    @story.user = current_user
     if @story.save
       render json: @story, status: :created
     else
