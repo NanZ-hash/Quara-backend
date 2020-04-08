@@ -1,6 +1,6 @@
 module Api::V1
   class JokesController < ProtectedController
-    before_action :authenticate, only: [:new, :show, :create]
+    before_action :authenticate, only: [:create]
     before_action :set_joke, only: [:show, :update, :destroy]
 
   # GET /jokes
