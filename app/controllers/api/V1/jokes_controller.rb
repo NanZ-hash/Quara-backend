@@ -52,7 +52,7 @@ module Api::V1
 
     # Only allow a trusted parameter "white list" through.
     def joke_params
-      params.require(:joke).permit(:content)
+      params.permit(:content)
     end
 end
 end
