@@ -1,6 +1,7 @@
 module Api::V1
-  class JokesController < ApplicationController
-  before_action :set_joke, only: [:show, :update, :destroy]
+  class JokesController < ProtectedController
+    before_action :authenticate, only: [:new, :show, :create]
+    before_action :set_joke, only: [:show, :update, :destroy]
 
   # GET /jokes
   def index
@@ -17,7 +18,7 @@ module Api::V1
   # POST /jokes
   def create
     @joke = Joke.new(joke_params)
-
+    @joke.user = current_user
     if @joke.save
       render json: @joke, status: :created
     else
@@ -52,7 +53,8 @@ module Api::V1
 
     # Only allow a trusted parameter "white list" through.
     def joke_params
-      params.permit(:content)
+      params.require(:jokes).permit(:content)
+
     end
 end
 end
