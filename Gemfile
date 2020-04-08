@@ -11,6 +11,7 @@ gem 'rack-cors', '~> 1.0.2', require: 'rack/cors'
 gem 'rails', '~> 5.2.1'
 gem 'tzinfo-data'
 gem 'wdm', '>= 0.1.0' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
+gem 'activerecord-session_store'
 
 group :development, :test do
   gem 'byebug', '~> 10.0.0', platform: :mri

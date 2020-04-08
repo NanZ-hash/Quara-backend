@@ -18,6 +18,8 @@ class UsersController < ProtectedController
     creds = user_creds
     if (user = User.authenticate creds[:email],
                                  creds[:password])
+                                 # Save the user ID in the session so it can be used in
+            current_user = User.find_by_id(session[:current_user_id])
       render json: user, serializer: UserLoginSerializer, root: 'user'
     else
       head :unauthorized
@@ -27,6 +29,10 @@ class UsersController < ProtectedController
   # DELETE '/sign-out'
   def signout
     current_user.logout
+    # Remove the user id from the session
+    session.delete(:current_user_id)
+    # Clear the memoized current user
+    @_current_user = nil
     head :no_content
   end
 
